@@ -21,7 +21,7 @@ def async_save(data, file_info, typer, instance):
     document = InMemoryUploadedFile(doc, *file_info)
     #add the name of the formfield to the instance's __dict__, and set the document to it. 
     instance.docfile = document
-    # filename_base, filename_ext = os.path.splitext(document.name)
-    # instance.docfile.storage = S3BotoStorage(bucket="asynch-uploader-%s"%(filename_ext[1:]))
+    filename_base, filename_ext = os.path.splitext(document.name)
+    instance.docfile.storage = S3BotoStorage(bucket="asynch-uploader-%s"%(filename_ext[1:]))
     instance.save()
     cache.clear()

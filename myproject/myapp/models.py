@@ -17,6 +17,5 @@ def aws_bucket(instance, filename):
     filename_base, filename_ext = os.path.splitext(filename)
     return 'asynch-uploader-%s' %(filename_ext[1:])
 
-
 class Document(models.Model):
-    docfile = models.FileField(upload_to=upload_file_to)
+    docfile = models.FileField(upload_to=upload_file_to,storage=S3BotoStorage(bucket=aws_bucket))

@@ -1,7 +1,5 @@
 from .tasks import async_save
 
-
-import ipdb
 def save_document(documentfield_data, instance):
     #deconstruct the file into something celery can pickle and send to the worker
     data = {}
@@ -15,5 +13,4 @@ def save_document(documentfield_data, instance):
     data['data'] = documentfield_data.read()
             
     #send the document to be saved by a worker
-    # ipdb.set_trace()
     async_save.delay(data, file_info, instance.__class__, instance)

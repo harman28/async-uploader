@@ -48,7 +48,13 @@ AWS_QUERYSTRING_AUTH = False     # don't add complex authentication-related quer
 AWS_S3_ACCESS_KEY_ID = os.environ["AWS_S3_ACCESS_KEY_ID"]
 AWS_S3_SECRET_ACCESS_KEY = os.environ["AWS_S3_SECRET_ACCESS_KEY"]
 AWS_STORAGE_BUCKET_NAME = 'asynch-uploader-else'
+
 AWS_BUCKET_ROOT = 'asynch-uploader-%s'
+AWS_BUCKETS = {
+    '.jpg': 'asynch-uploader-jpg',
+    '.xml': 'asynch-uploader-xml',
+    '.txt': 'asynch-uploader-txt',
+}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

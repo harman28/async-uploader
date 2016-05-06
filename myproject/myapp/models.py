@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from storages.backends.s3boto import S3BotoStorage
+from myproject.settings import AWS_BUCKETS
+import ipdb
 
 def upload_file_to(instance, filename):
     import os
@@ -12,10 +14,16 @@ def upload_file_to(instance, filename):
         filename_ext.lower(),
     )
 
-def aws_bucket(instance, filename):
-    import os
-    filename_base, filename_ext = os.path.splitext(filename)
-    return 'asynch-uploader-%s' %(filename_ext[1:])
+class MyS3BotoStorage(S3BotoStorage):
+    @property
+    def bucket(self):
+        ipdb.set_trace()
+        bucket_name = AWS_BUCKETS[self._filename[-4:]]
+        return self._get_or_create_bucket(bucket_name)
+
+    def _save(self, name, content):
+        self._filename = name
+        return super(MyS3BotoStorage, self)._save(name, content)
 
 class Document(models.Model):
-    docfile = models.FileField(upload_to=upload_file_to,storage=S3BotoStorage(bucket=aws_bucket))
+    docfile = models.FileField(upload_to=upload_file_to,storage=MyS3BotoStorage())

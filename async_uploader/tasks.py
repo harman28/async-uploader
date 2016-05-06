@@ -9,7 +9,6 @@ from storages.backends.s3boto import S3BotoStorage
 from celery_handler.celery import app
 
 import StringIO
-import ipdb
 import os
 
 @app.task

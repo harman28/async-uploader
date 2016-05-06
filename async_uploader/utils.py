@@ -1,10 +1,9 @@
 from .tasks import async_save
-
 def save_document(documentfield_data, instance):
     #deconstruct the file into something celery can pickle and send to the worker
     data = {}
     file_info = []
-    file_info.append(documentfield_data.field_name)
+    file_info.append('docfile')
     file_info.append(documentfield_data.name)
     file_info.append(documentfield_data.content_type)
     file_info.append(documentfield_data.size)           
